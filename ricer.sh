@@ -24,6 +24,8 @@ rm -rf yay/
 
 # Install packages
 yay -S --noconfirm - < packages.txt
+yay -R --noconfirm rxvt-unicode
+yay -S --noconfirm rxvt-unicode-patched
 
 # Install extra packages if user wants it
 case $extra in

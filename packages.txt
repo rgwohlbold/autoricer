@@ -17,7 +17,6 @@ numix-frost-themes
 powerline-fonts-git
 polkit-gnome
 ranger
-rxvt-unicode-patched
 urxvt-resize-font-git
 urxvt-perls
 visual-studio-code-bin
