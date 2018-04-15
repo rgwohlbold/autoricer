@@ -5,10 +5,13 @@ if [ "$(whoami)" = "root" ]; then
     exit
 fi
 
-read -p "What is your username? " user
 read -p "Install extra packages? " extra
+sudo touch /tmp/hello
+sudo rm /tmp/hello
 
 home="$HOME"
+
+sudo pacman -S base-devel
 
 # Install yay AUR helper
 git clone https://aur.archlinux.org/yay
