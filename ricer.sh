@@ -1,25 +1,19 @@
 #!/bin/bash
 
-if [ ! "$(whoami)" = "root" ]; then
-    echo "This operation needs root privileges."
+if [ "$(whoami)" = "root" ]; then
+    echo "Do not execute this as root!"
     exit
 fi
 
 read -p "What is your username? " user
 read -p "Install extra packages? " extra
 
-
-# Add user and their groups
-useradd -m -g users -s /bin/bash "$user"
-gpasswd -a "$user" wheel
-gpasswd -a "$user" video
-gpasswd -a "$user" audio
-
+home="$HOME"
 
 # Install yay AUR helper
 git clone https://aur.archlinux.org/yay
 cd yay
-su "$user" -c "makepkg -si --noconfirm"
+makepkg -si --noconfirm
 cd ..
 rm -rf yay/
 
@@ -34,15 +28,15 @@ case $extra in
 esac
 
 # Make Xorg configurations
-cp ./.xinitrc ./.Xresources "/home/$user/"
+cp ./.xinitrc ./.Xresources "$home"
 cp ./20-intel.conf /etc/X11/xorg.conf.d/
 
 # Make i3-gaps configuration
-rm -rf "/home/$user/.config/i3/"
-cp -r ./i3/ "/home/$user/.config/i3/"
+rm -rf "$home/.config/i3/"
+cp -r ./i3/ "$home/.config/i3/"
 
 # Install pathogen and make vim configuration
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-cp ./.vimrc "/home/$user/"
+cp ./.vimrc "$home"
 
