@@ -9,12 +9,17 @@ read -p "What is your username? " user
 read -p "Install extra packages? " extra
 
 
+# Add user and their groups
+useradd -m -g users -s /bin/bash "$user"
+gpasswd -a "$user" wheel
+gpasswd -a "$user" video
+gpasswd -a "$user" audio
 
 
 # Install yay AUR helper
 git clone https://aur.archlinux.org/yay
 cd yay
-makepkg -si --noconfirm
+su "$user" -c "makepkg -si --noconfirm"
 cd ..
 rm -rf yay/
 
@@ -28,12 +33,6 @@ case $extra in
         ;;
 esac
 
-# Add user and their groups
-useradd -m -g users -s /bin/bash "$user"
-gpasswd -a "$user" wheel
-gpasswd -a "$user" video
-gpasswd -a "$user" audio
-
 # Make Xorg configurations
 cp ./.xinitrc ./.Xresources "/home/$user/"
 cp ./20-intel.conf /etc/X11/xorg.conf.d/
@@ -46,5 +45,4 @@ cp -r ./i3/ "/home/$user/.config/i3/"
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 cp ./.vimrc "/home/$user/"
-
 
