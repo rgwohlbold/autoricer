@@ -7,7 +7,7 @@ fi
 
 
 install_pkg() {
-    res=$(pacman -Q make >/dev/null 2>&1
+    res=$(pacman -Q make >/dev/null 2>&1)
     if [ $? = 1 ]; then
         sudo pacman -S base-devel --noconfirm
     fi
