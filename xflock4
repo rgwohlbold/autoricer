@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ ! -e /tmp/locked ]; then
+	touch /tmp/locked
+	ICON=/home/richard/Pictures/lock2.png
+	chmod -x /usr/lib/notify-osd/notify-osd
+	killall notify-osd
+    wait_for_suspend &
+    betterlockscreen -l blur
+	rm /tmp/locked
+	chmod +x /usr/lib/notify-osd/notify-osd
+else
+	echo "Already locked"
+fi

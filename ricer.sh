@@ -19,7 +19,7 @@ install_pkg() {
     rm -rf yay/
 
     # Install packages
-    yay -S --noconfirm - < packages.txt
+    yay -S --needed --noconfirm - < packages.txt
     yay -R --noconfirm rxvt-unicode
     yay -S --noconfirm rxvt-unicode-patched
 
@@ -33,14 +33,21 @@ install_pkg() {
 
 config_xorg(){
     # Make Xorg configurations
-    cp ./.xinitrc ./.Xresources "$home"
+    cp ./.xinitrc ./.Xresources ~
     sudo cp ./20-intel.conf /etc/X11/xorg.conf.d/
 }
 
 config_i3() {
     # Make i3-gaps configuration
-    rm -rf "$home/.config/i3/"
-    cp -r ./i3/ "$home/.config/i3/"
+    rm -rf "~/.config/i3/"
+    cp -r ./i3/ "~/.config/i3/"
+
+}
+
+config_lock() {
+    cp ./wallpaper.jpg ~/Pictures/wallpaper.jpg
+    sudo rm /usr/bin/xflock4
+    sudo cp ./xflock4 /usr/local/bin/xflock4
 }
 
 
@@ -52,7 +59,7 @@ config_vim() {
     # Install pathogen and make vim configuration
     mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-    cp ./.vimrc "$home"
+    cp ./.vimrc ""
 
     # Install vim plugins
     vimplugin https://github.com/mileszs/ack.vim ack.vim/    
@@ -75,8 +82,8 @@ read -p "Install extra packages? " extra
 sudo touch /tmp/hello
 sudo rm /tmp/hello
 
-home="$HOME"
 install_pkg "$extra"
-config_xorg "$home"
-config_i3 "$home"
-config_vim "$home"
+config_xorg
+config_i3
+config_lock
+config_vim

@@ -195,7 +195,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
 exec --no-startup-id synclient VertEdgeScroll=1 TapButton1=1 HorizEdgeScroll=1 VertScrollDelta=-111
 exec --no-startup-id nm-applet
 exec --no-startup-id feh --bg-scale /home/richard/Pictures/wallpaper.jpg
-exec --no-startup-id lock.sh -u ~/Pictures/wallpaper.jpg
+exec --no-startup-id betterlockscreen -u ~/Pictures/wallpaper.jpg
 exec --no-startup-id compton -bGC
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
