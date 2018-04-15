@@ -8,4 +8,4 @@ spotify
 sxiv
 vim-live-latex-preview
 vim-youcompleteme-git
-
+visual-studio-code-bin

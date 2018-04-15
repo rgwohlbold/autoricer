@@ -1,3 +1,4 @@
+ack
 betterlockscreen
 bumblebee-status
 compton
@@ -19,8 +20,6 @@ polkit-gnome
 ranger
 urxvt-resize-font-git
 urxvt-perls
-visual-studio-code-bin
 xfce4-power-manager
 xorg-xinit
 xorg-server
-
