@@ -1,0 +1,11 @@
+keepassx2
+libreoffice-fresh
+lxappearance
+pandoc
+rsync
+sl
+spotify
+sxiv
+vim-live-latex-preview
+vim-youcompleteme-git
+
