@@ -1,0 +1,87 @@
+!! General colors
+*color0: #262626
+*color1: #FF0000
+*color2: #00DD00
+*color3: #FF9900
+*color4: #0055FF
+*color5: #FF00FF
+*color6: #00EEEE
+*color7: #FFFFFF
+*color8: #555555
+*color9: #FF5555
+*color10: #39FF14
+*color11: #FFFF55
+*color12: #7777FF
+*color13: #FF55FF
+*color14: #55FFFF
+*color15: #FFFFFF
+
+!! Fonts
+/* URxvt.font:     xft:Source Code Pro for Powerline:pixelsize=13:style=medium */
+/* URxvt.boldFont: xft:Source Code Pro for Powerline:pixelsize=13:style=bold */
+/* URxvt*font:                 xft:Monaco for Powerline:regular:size=10 */
+/* URxvt*imFont:               xft:Monaco for Powerline:regular:size=10 */
+/* URxvt*boldFont:             xft:Monaco for Powerline:bold:size=10 */
+/* URxvt*italicFont:           xft:Monaco for Powerline:italic:size=10 */
+/* URxvt*boldItalicFont:       xft:Monaco for Powerline:bold:italic:size=10 */
+URxvt.font: xft:Inconsolata for Powerline:style=Bold:size=12
+URxvt.boldFont: xft:Inconsolata for Powerline:style=BoldForPowerline:size=12
+
+!! Styles
+URxvt.intensityStyles:	    false
+URxvt.depth:                32
+URxvt.background:	        [90]#111111
+URxvt*scrollBar:            false
+URxvt*foreground:           #c6c6c6
+URxvt*cursorColor:	        white
+
+!! copy/paste
+URxvt.keysym.M-c:           perl:clipboard:copy
+URxvt.keysym.M-v:           perl:clipboard:paste
+
+!! extensions
+URxvt.perl-ext-common:	    default,matcher,resize-font,url-select,keyboard-select,clipboard
+
+!! url-launcher
+URxvt.url-launcher:         /usr/bin/xdg-open
+
+!! matcher
+URxvt.matcher.button:       1
+URxvt.matcher.rend.0:       Uline Bold fg5
+
+!! keyboard-select
+URxvt.keysym.M-Escape:           perl:keyboard-select:activate
+
+!! url-select
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.url-select.launcher:  /usr/bin/xdg-open
+URxvt.url-select.underline: true
+
+!! resize-font
+URxvt.resize-font.smaller:  M-j
+URxvt.resize-font.bigger:   M-k
+
+
+!! rofi
+rofi.sidebar-mode:          false
+rofi.bw:                    1
+rofi.padding:               5
+rofi.fixed-num-lines:       true
+rofi.hide-scrollbar:        true
+
+!! Font settings
+Xft.dpi: 90
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+!! ROFI Color theme
+rofi.lines:                 5
+rofi.color-enabled: true
+rofi.color-window: #393939, #393939, #268bd2
+rofi.color-normal: #393939, #ffffff, #393939, #268bd2, #ffffff
+rofi.color-active: #393939, #268bd2, #393939, #268bd2, #205171
+rofi.color-urgent: #393939, #f3843d, #393939, #268bd2, #ffc39c

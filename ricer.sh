@@ -18,6 +18,8 @@ install_pkg() {
     cd ..
     rm -rf yay/
 
+    # TODO add MAKEFLAGS=-j5 to makepkg.conf
+
     # Install packages
     yay -S --needed --noconfirm - < packages.txt
     yay -R --noconfirm rxvt-unicode
@@ -78,12 +80,16 @@ config_vim() {
 }
 
 
-read -p "Install extra packages? " extra
-sudo touch /tmp/hello
-sudo rm /tmp/hello
+main() {
+    read -p "Install extra packages? " extra
+    sudo touch /tmp/hello
+    sudo rm /tmp/hello
 
-install_pkg "$extra"
-config_xorg
-config_i3
-config_lock
-config_vim
+    install_pkg "$extra"
+    config_xorg
+    config_i3
+    config_lock
+    config_vim
+}
+
+main | tee out.log
