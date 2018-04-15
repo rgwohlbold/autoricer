@@ -86,7 +86,7 @@ config_vim() {
 
 main() {
     read -p "Install extra packages? " extra
-    reap -p "Intel drivers? " intel
+    read -p "Intel drivers? " intel
     sudo touch /tmp/hello
     sudo rm /tmp/hello
 
