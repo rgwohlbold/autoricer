@@ -11,7 +11,9 @@ sudo rm /tmp/hello
 
 home="$HOME"
 
-sudo pacman -S base-devel
+if [ $(pacman -Q make >/dev/null 2>&1) ]; then
+    sudo pacman -S base-devel --noconfirm
+fi
 
 # Install yay AUR helper
 git clone https://aur.archlinux.org/yay

@@ -23,5 +23,5 @@ urxvt-perls
 visual-studio-code-bin
 xfce4-power-manager
 xorg-xinit
-xorg-xserver
+xorg-server
 
