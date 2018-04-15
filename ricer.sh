@@ -36,7 +36,11 @@ install_pkg() {
 config_xorg(){
     # Make Xorg configurations
     cp ./.xinitrc ./.Xresources ~
-    sudo cp ./20-intel.conf /etc/X11/xorg.conf.d/
+
+    # If using intel drivers, use TearFree option
+    if [ "$1" = "y" ]; then
+        sudo cp ./20-intel.conf /etc/X11/xorg.conf.d/
+    fi
 }
 
 config_i3() {
@@ -82,11 +86,13 @@ config_vim() {
 
 main() {
     read -p "Install extra packages? " extra
+    reap -p "Intel drivers? " intel
     sudo touch /tmp/hello
     sudo rm /tmp/hello
 
+
     install_pkg "$extra"
-    config_xorg
+    config_xorg "$intel"
     config_i3
     config_lock
     config_vim
