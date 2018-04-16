@@ -49,7 +49,7 @@ config_vim() {
 config_fish() {
     curl -L https://get.oh-my.fish | fish 
     fish -c "omf install bobthefish"
-    fish -c "omf install bangbang"
+    fish -c "omf install bang-bang"
     cp ./config.fish "$HOME/.config/fish/config.fish"
 }
 
