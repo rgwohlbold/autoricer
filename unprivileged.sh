@@ -2,27 +2,33 @@
 
 config_xorg(){
     # Make Xorg configurations
+    echo "Configuring Xorg..." >&2
     cp ./.xinitrc ./.Xresources $HOME/
+
 }
 
 config_i3() {
     # Make i3-gaps configuration
+    echo "Configuring i3wm..." >&2
     mkdir -p ~/.config/i3
     cp -r ./i3/* $HOME/.config/i3
 
 }
 
 config_lock() {
+    echo "Configuring lock screen..." >&2
     mkdir -p $HOME/Pictures
     cp ./wallpaper.jpg $HOME/Pictures/wallpaper.jpg
 }
 
 
 vimplugin() {
-    git clone "$1" "$HOME/.vim/bundle/$2"
+    echo "Installing vim plugin $2" >&2
+    git clone "$1" "$HOME/.vim/bundle/$2" >> out.log
 }
 
 config_vim() {
+    echo "Configuring vim" >&2
     # Install pathogen and make vim configuration
     mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle && \
     curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -47,9 +53,9 @@ config_vim() {
 }
 
 config_fish() {
-    curl -L https://get.oh-my.fish | fish 
-    fish -c "omf install bobthefish"
-    fish -c "omf install bang-bang"
+    echo "Configuring fish..." >&2
+    curl -L https://get.oh-my.fish | fish >&2
+    fish -c "omf install bobthefish; omf install bang-bang; exit" >&2
     cp ./config.fish "$HOME/.config/fish/config.fish"
 }
 
@@ -61,4 +67,4 @@ main() {
     config_fish
 }
 
-main
+main >> out.log
