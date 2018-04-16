@@ -54,8 +54,8 @@ config_vim() {
 
 config_fish() {
     echo "Configuring fish..." >&2
-    curl -L https://get.oh-my.fish | fish 
-    fish -c "omf install bobthefish; omf install bang-bang; exit" &
+    curl -L https://get.oh-my.fish | fish >&2
+    fish -c "omf install bobthefish; omf install bang-bang; exit" >&2
     cp ./config.fish "$HOME/.config/fish/config.fish"
 }
 
