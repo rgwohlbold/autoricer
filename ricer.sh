@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(whoami)" = "root" ] && [ ! "$SUDO_USER" = "" ]; then
+if [ ! "$(whoami)" = "root" ] || [ ! "$SUDO_USER" = "" ]; then
     echo "Use sudo to execute this!"
     exit
 fi
