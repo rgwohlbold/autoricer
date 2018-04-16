@@ -4,7 +4,7 @@ bumblebee-status
 compton
 cronie
 feh
-firefox-nightly
+firefox
 fish
 i3-gaps
 mpd
@@ -12,12 +12,11 @@ mutt
 ncmpcpp
 neofetch
 network-manager-applet
-numix-circle-icon-theme-git
-numix-frost-themes
 otf-font-awesome
 powerline-fonts-git
 polkit-gnome
 ranger
+rofi
 ttf-font-awesome
 urxvt-resize-font-git
 urxvt-perls
