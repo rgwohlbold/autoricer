@@ -6,20 +6,21 @@ if [ ! "$(whoami)" = "root" ] || [ "$SUDO_USER" = "" ]; then
 fi
 
 log() {
-    echo "$1" > realout
+    echo "$1"
 }
 
 install_pkg() {
     res=$(pacman -Q make >/dev/null 2>&1)
     if [ $? = 1 ]; then
         log "Installing base-devel"
-        pacman -S base-devel --noconfirm --quiet | tee realout
+        pacman -S base-devel --noconfirm
     fi
 
     log "Installing yay AUR helper"
     # Install yay AUR helper
-    git clone https://aur.archlinux.org/yay
+    sudo -u "$SUDO_USER" git clone https://aur.archlinux.org/yay
     cd yay
+    echo $SUDO_USER
     sudo -u "$SUDO_USER" makepkg -si --noconfirm
     cd ..
     rm -rf yay/
@@ -28,9 +29,9 @@ install_pkg() {
 
     log "Installing packages..."
     # Install packages
-    sudo -u "$SUDO_USER" yay -S --quiet --needed --noconfirm --sudoloop - < packages.txt | tee realout
-    sudo -u "$SUDO_USER" yay -R --quiet --noconfirm --sudoloop rxvt-unicode
-    sudo -u "$SUDO_USER" yay -S --quiet --noconfirm --sudoloop rxvt-unicode-patched
+    sudo -u "$SUDO_USER" yay -S --needed --noconfirm --sudoloop - < packages.txt
+    sudo -u "$SUDO_USER" yay -R --noconfirm --sudoloop rxvt-unicode
+    sudo -u "$SUDO_USER" yay -S --noconfirm --sudoloop rxvt-unicode-patched
 
     # Install extra packages if user wants it
     case "$1" in
@@ -60,7 +61,7 @@ config_lock() {
 
 
 main() {
-    install_pkg "$1"
+    #install_pkg "$1"
     config_xorg "$2"
     config_lock
 }
@@ -71,4 +72,5 @@ cat realout &
 read -p "Install extra packages? " extra
 read -p "Intel drivers? " intel
 main "$extra" "$intel"
+sudo -u "$SUDO_USER" ./unprivileged.sh
 rm realout
