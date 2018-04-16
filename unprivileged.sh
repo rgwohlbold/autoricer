@@ -48,9 +48,9 @@ config_vim() {
 
 config_fish() {
     curl -L https://get.oh-my.fish | fish 
-    omf install bobthefish
-    omf theme bobthefish
-    omf install bangbang
+    fish -c "omf install bobthefish"
+    fish -c "omf install bangbang"
+    cp ./config.fish "$HOME/.config/fish/config.fish"
 }
 
 main() {
