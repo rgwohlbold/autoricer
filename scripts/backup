@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ ! -d /run/media/richard/Elements ]; then
+    echo "Hard drive not mounted."
+    exit
+fi
+
+if [ ! $(whoami) = "root" ]; then
+    echo "Operation requires root privileges."
+    exit
+fi
+
+home=/home/richard
+
+cryptsetup luksOpen /run/media/richard/Elements/storage.vol external
+mount /dev/mapper/external /mnt
+
+rsync -aAxv --exclude-from="$home/.exclude_root" / /run/media/richard/Backup/root
+
+rsync -rtvuL --delete --modify-window=1 $home/Programs/backup/unencrypted/* /run/media/richard/Elements/unencrypted
+echo -e "First backup completed"
+
+cd $home
+
+# Exclude all unencrypted files
+find Programs/backup -print0 -type l | xargs -0 readlink -f | sed 's#/home/richard/##g' > /tmp/excluded
+# Exclude all hidden files
+echo .*/ | tr ' ' "\n" >> /tmp/excluded
+# Exclude all node_modules folder
+find 'Programs/' -type d -name "node_modules" >> /tmp/excluded
+
+rsync -rtDus --delete --exclude-from='/tmp/excluded' /home/richard/ /mnt
+
+umount /mnt
+fsck.fat /dev/mapper/external
+cryptsetup luksClose external
+rm /tmp/excluded

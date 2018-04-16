@@ -3,6 +3,7 @@ betterlockscreen
 bumblebee-status
 compton
 cronie
+feh
 firefox-nightly
 fish
 gparted

@@ -56,7 +56,7 @@ config_lock() {
     if [ -f /usr/bin/xflock4 ]; then
         rm /usr/bin/xflock4
     fi
-    cp ./xflock4 /usr/local/bin/xflock4
+    cp ./scripts/* /usr/local/bin/
 }
 
 

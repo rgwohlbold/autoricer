@@ -1,0 +1,8 @@
+#!/bin/bash
+
+adb -d get-state >/dev/null 2>& 1 || $(echo "Phone not found" && exit)
+
+adb-sync --reverse /sdcard/WhatsApp /home/richard/Pictures/phone
+adb-sync --reverse /sdcard/Snapchat /home/richard/Pictures/phone
+adb-sync --reverse /sdcard/DCIM/Camera /home/richard/Pictures/phone
+adb-sync --reverse /sdcard/DCIM/Screenshots /home/richard/Pictures/phone

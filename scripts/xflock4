@@ -5,7 +5,7 @@ if [ ! -e /tmp/locked ]; then
 	chmod -x /usr/lib/notify-osd/notify-osd
 	killall notify-osd
     wait_for_suspend &
-    betterlockscreen -l blur
+	/usr/local/bin/lock.sh -l blur
 	rm /tmp/locked
 	chmod +x /usr/lib/notify-osd/notify-osd
 else

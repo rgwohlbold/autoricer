@@ -1,0 +1,19 @@
+#!/bin/bash
+
+title=quit
+
+option_yes=yes
+option_no=no
+
+
+response=$(echo -e "$option_yes\n$option_no" | rofi -dmenu -p "$title")
+
+case $response in
+    "$option_yes")
+        i3-msg exit
+        ;;
+    *)
+        ;;
+esac
+
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+while true; do
+    sleep 30
+    if [ ! -e /tmp/locked ]; then
+        exit
+    fi
+    systemctl suspend
+done

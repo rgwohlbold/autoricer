@@ -1,0 +1,23 @@
+#!/bin/bash
+
+title=what
+
+option_shutdown=shutdown
+option_reboot=reboot
+option_cancel=cancel
+
+
+response=$(echo -e "$option_shutdown\n$option_reboot\n$option_cancel" | rofi -dmenu -p "$title")
+
+case $response in
+    "$option_shutdown")
+        poweroff
+        ;;
+    "$option_reboot")
+        systemctl reboot
+        ;;
+    *)
+        ;;
+esac
+
+
