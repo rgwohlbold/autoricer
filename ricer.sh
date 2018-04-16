@@ -20,7 +20,7 @@ install_pkg() {
     # Install yay AUR helper
     git clone https://aur.archlinux.org/yay
     cd yay
-    makepkg -si --noconfirm
+    sudo -u "$SUDO_USER" makepkg -si --noconfirm
     cd ..
     rm -rf yay/
 
