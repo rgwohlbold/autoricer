@@ -46,11 +46,19 @@ config_vim() {
 
 }
 
+config_fish() {
+    curl -L https://get.oh-my.fish | fish 
+    omf install bobthefish
+    omf theme bobthefish
+    omf install bangbang
+}
+
 main() {
     config_xorg
     config_i3
     config_lock
     config_vim
+    config_fish
 }
 
 main
