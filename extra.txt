@@ -1,3 +1,5 @@
+gparted
+grub-customizer
 keepassx2
 libreoffice-fresh
 lxappearance
