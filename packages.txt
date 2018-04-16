@@ -16,9 +16,11 @@ neofetch
 network-manager-applet
 numix-circle-icon-theme-git
 numix-frost-themes
+otf-font-awesome
 powerline-fonts-git
 polkit-gnome
 ranger
+ttf-font-awesome
 urxvt-resize-font-git
 urxvt-perls
 xfce4-power-manager
