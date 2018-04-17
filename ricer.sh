@@ -21,7 +21,9 @@ install_pkg() {
     cd ..
     rm -rf yay/
 
-    # TODO add MAKEFLAGS=-j5 to makepkg.conf
+    # Set makeflags to -j{number of cores + 1}
+    threads=$(( $(nproc --all) + 1))
+    sed "s/-j5/-j${threads}/g" ./pkg/makepkg.conf > /etc/makepkg.conf
 
     echo "Installing basic packages..." >&2
     # Install packages
@@ -64,5 +66,6 @@ main() {
 
 read -p "Install extra packages? (y/n) " extra
 read -p "Intel drivers? (y/n) " intel
+
 main "$extra" "$intel" | sudo -u "$SUDO_USER" tee out.log
 sudo -u "$SUDO_USER" ./unprivileged.sh
