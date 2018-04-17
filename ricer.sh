@@ -25,7 +25,7 @@ install_pkg() {
 
     echo "Installing basic packages..." >&2
     # Install packages
-    sudo -u "$SUDO_USER" yay -S --quiet --needed --noconfirm --sudoloop - < packages.txt
+    sudo -u "$SUDO_USER" yay -S --quiet --needed --noconfirm --sudoloop - < ./pkg/packages.txt
     sudo -u "$SUDO_USER" yay -R --quiet --noconfirm --sudoloop rxvt-unicode
     sudo -u "$SUDO_USER" yay -S --quiet --noconfirm --sudoloop rxvt-unicode-patched
 
@@ -33,7 +33,7 @@ install_pkg() {
     case "$1" in
         *[yY])
             echo "Installing extra packages..." >&2
-            yay -S --quiet --noconfirm --sudoloop - < extra.txt | tee realout
+            yay -S --quiet --noconfirm --sudoloop - < ./pkg/extra.txt
             ;;
     esac
 }
@@ -43,7 +43,7 @@ config_xorg() {
     # If using intel drivers, use TearFree option
     if [ "$1" = "y" ]; then
         echo "Installing intel drivers" >&2
-        cp ./20-intel.conf /etc/X11/xorg.conf.d/
+        cp ./xorg/20-intel.conf /etc/X11/xorg.conf.d/
     fi
 }
 

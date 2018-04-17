@@ -3,7 +3,7 @@
 config_xorg(){
     # Make Xorg configurations
     echo "Configuring Xorg..." >&2
-    cp ./.xinitrc ./.Xresources "$HOME"
+    cp ./xorg/.xinitrc ./xorg/.Xresources "$HOME"
 
 }
 
@@ -11,20 +11,20 @@ config_i3() {
     # Make i3-gaps configuration
     echo "Configuring i3wm..." >&2
     mkdir -p ~/.config/i3
-    cp -r ./i3/* "$HOME/.config/i3"
+    cp ./i3/config "$HOME/.config/i3/"
 
 }
 
 config_lock() {
     echo "Configuring lock screen..." >&2
     mkdir -p "$HOME/Pictures"
-    cp ./wallpaper.jpg "$HOME/Pictures/wallpaper.jpg"
+    cp ./i3/wallpaper.jpg "$HOME/Pictures/wallpaper.jpg"
 }
 
 
 vimplugin() {
     echo "Installing vim plugin $2" >&2
-    git clone "$1" "$HOME/.vim/bundle/$2" >> out.log
+    git clone -q "$1" "$HOME/.vim/bundle/$2" >> out.log
 }
 
 config_vim() {
@@ -32,7 +32,7 @@ config_vim() {
     # Install pathogen and make vim configuration
     mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle" && \
     curl -LSso "$HOME/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
-    cp ./.vimrc "$HOME"
+    cp ./vim/.vimrc "$HOME"
 
     # Install vim plugins
     vimplugin https://github.com/mileszs/ack.vim ack.vim/    
