@@ -3,7 +3,7 @@
 config_xorg(){
     # Make Xorg configurations
     echo "Configuring Xorg..." >&2
-    cp ./.xinitrc ./.Xresources $HOME/
+    cp ./xorg/.xinitrc ./xorg/.Xresources "$HOME"
 
 }
 
@@ -11,28 +11,28 @@ config_i3() {
     # Make i3-gaps configuration
     echo "Configuring i3wm..." >&2
     mkdir -p ~/.config/i3
-    cp -r ./i3/* $HOME/.config/i3
+    cp ./i3/config "$HOME/.config/i3/"
 
 }
 
 config_lock() {
     echo "Configuring lock screen..." >&2
-    mkdir -p $HOME/Pictures
-    cp ./wallpaper.jpg $HOME/Pictures/wallpaper.jpg
+    mkdir -p "$HOME/Pictures"
+    cp ./i3/wallpaper.jpg "$HOME/Pictures/wallpaper.jpg"
 }
 
 
 vimplugin() {
     echo "Installing vim plugin $2" >&2
-    git clone "$1" "$HOME/.vim/bundle/$2" >> out.log
+    git clone -q "$1" "$HOME/.vim/bundle/$2" >> out.log
 }
 
 config_vim() {
     echo "Configuring vim" >&2
     # Install pathogen and make vim configuration
-    mkdir -p $HOME/.vim/autoload $HOME/.vim/bundle && \
-    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-    cp ./.vimrc $HOME
+    mkdir -p "$HOME/.vim/autoload" "$HOME/.vim/bundle" && \
+    curl -LSso "$HOME/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
+    cp ./vim/.vimrc "$HOME"
 
     # Install vim plugins
     vimplugin https://github.com/mileszs/ack.vim ack.vim/    
@@ -47,8 +47,8 @@ config_vim() {
     vimplugin https://github.com/vim-airline/vim-airline-themes vim-airline-themes
     vimplugin https://github.com/tpope/vim-commentary vim-commentary/      
     vimplugin https://github.com/tpope/vim-surround vim-surround/
-    mkdir $HOME/.vim/colors
-    curl https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim > $HOME/.vim/colors/PaperColor.vim
+    mkdir "$HOME/.vim/colors"
+    curl https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim > "$HOME/.vim/colors/PaperColor.vim"
 
 }
 
@@ -57,6 +57,16 @@ config_fish() {
     curl -L https://get.oh-my.fish | fish >&2
     fish -c "omf install bobthefish; omf install bang-bang; exit" >&2
     cp ./config.fish "$HOME/.config/fish/config.fish"
+}
+
+config_music() {
+    echo "Configuring mpd..." >&2
+    mkdir -p "$HOME/.config/mpd"
+    cp ./mpd/mpd.conf "$HOME/.config/mpd/"
+
+    echo "Configuring ncmpcpp..." >&2
+    mkdir -p "$HOME/.ncmpcpp"
+    cp ./ncmpcpp/bindings "$HOME/.ncmpcpp/"
 }
 
 main() {

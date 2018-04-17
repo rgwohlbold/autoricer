@@ -1,18 +1,46 @@
 #!/bin/bash
+on() {
+    if [ ! "$1" = "" ]; then
+        xrandr --output "$1" --auto
+    fi
+}
+
+off() {
+    if [ ! "$1" = "" ]; then
+        xrandr --output "$1" --off
+    fi
+}
+
+mirror() {
+    if [ ! "$1" = "" ] && [ ! "$2" = "" ]; then
+        xrandr --output "$1" --auto --same-as "$2"
+    fi
+}
+
+side() {
+    if [ ! "$1" = "" ] && [ ! "$2" = "" ]; then
+        xrandr --output "$1" --auto --right-of "$2"
+    fi
+
+}
 
 choices="laptop-only\nlaptop-plus-vga\nlaptop-plus-hdmi\nvga-copy\nhdmi-copy\nvga-only\nhdmi-only\ncancel"
 title="display"
 
 chosen=$(echo -e "$choices" | rofi -lines 8 -dmenu -p "$title")
 
+lvds=$(xrandr -q | grep 'LVDS[-]*1')
+vga=$(xrandr -q | grep 'VGA[-]*1')
+hdmi=$(xrandr -q | grep 'HDMI[-]*1')
+
 case "$chosen" in
-    laptop-only)        xrandr --output LVDS1 --auto --output VGA1 --off                      --output HDMI1 --off                       ;;
-    vga-only)           xrandr --output LVDS1 --off  --output VGA1 --auto                     --output HDMI1 --off                       ;;
-    hdmi-only)          xrandr --output LVDS1 --off  --output VGA1 --auto                     --output HDMI1 --auto                      ;;
-    laptop-plus-vga)    xrandr --output LVDS1 --auto --output VGA1 --auto --right-of LVDS1   --output HDMI1 --off                       ;;
-    laptop-plus-hdmi)   xrandr --output LVDS1 --auto --output VGA1 --off                      --output HDMI1 --auto --right-of LVDS1    ;;
-    vga-copy)           xrandr --output LVDS1 --auto --output VGA1 --auto --same-as LVDS1    --output HDMI1 --off                       ;;
-    hdmi-copy)          xrandr --output LVDS1 --auto --output VGA1 --off                      --output HDMI1 --auto --same-as LVDS1     ;;
+    laptop-only)        on  $lvds;   off    $vga;       off     $hdmi       ;;
+    vga-only)           off $lvds;   on     $vga;       off     $hdmi       ;;
+    hdmi-only)          off $lvds;   off    $vga;       on      $hdmi       ;;
+    laptop-plus-vga)    on  $lvds;   side   $vga $lvds; off     $hdmi       ;;
+    laptop-plus-hdmi)   on  $lvds;   off    $vga;       side    $hdmi $lvds ;;
+    vga-copy)           on  $lvds;   mirror $vga $lvds; off     $hdmi       ;;
+    hdmi-copy)          on  $lvds;   off    $vga;       mirror  $hdmi $lvds ;;
 esac
 
 
