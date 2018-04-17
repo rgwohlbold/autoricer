@@ -2,7 +2,7 @@
 
 config_xorg(){
     # Make Xorg configurations
-    echo "Configuring Xorg..." >&2
+    echo "Configuring xorg..." >&2
     cp ./xorg/.xinitrc ./xorg/.Xresources "$HOME"
 
 }
@@ -59,6 +59,8 @@ config_fish() {
     echo "Configuring fish..." >&2
     if [ ! -d "$HOME/.local/share/omf" ]; then
         curl -L https://get.oh-my.fish | fish >&2
+    else
+        fish -c "omf update; exit"
     fi
     if [ ! -d "$HOME/.local/share/omf/pkg/bang-bang" ]; then
         fish -c "omf install bang-bang; exit" >&2
