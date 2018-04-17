@@ -49,15 +49,23 @@ config_vim() {
     vimplugin https://github.com/vim-airline/vim-airline-themes vim-airline-themes
     vimplugin https://github.com/tpope/vim-commentary vim-commentary/      
     vimplugin https://github.com/tpope/vim-surround vim-surround/
-    mkdir "$HOME/.vim/colors"
-    curl https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim > "$HOME/.vim/colors/PaperColor.vim"
-
+    mkdir -p "$HOME/.vim/colors"
+    if [ ! -f "$HOME/.vim/colors/PaperColor.vim" ]; then
+        curl https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim > "$HOME/.vim/colors/PaperColor.vim"
+    fi
 }
 
 config_fish() {
     echo "Configuring fish..." >&2
-    curl -L https://get.oh-my.fish | fish >&2
-    fish -c "omf install bobthefish; omf install bang-bang; exit" >&2
+    if [ ! -d "$HOME/.local/share/omf" ]; then
+        curl -L https://get.oh-my.fish | fish >&2
+    fi
+    if [ ! -d "$HOME/.local/share/omf/pkg/bang-bang" ]; then
+        fish -c "omf install bang-bang; exit" >&2
+    fi
+    if [ ! -d "$HOME/.local/share/omf/themes/bobthefish" ]; then
+        fish -c "omf install bobthefish; exit"
+    fi
     cp ./fish/config.fish "$HOME/.config/fish/config.fish"
 }
 
