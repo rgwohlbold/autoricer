@@ -183,7 +183,7 @@ bindsym $mod+i exec i3-sensible-terminal -e ranger
 # gaps outer 5
 gaps inner 10
 
-bindsym $mod+space exec firefox-nightly
+bindsym $mod+space exec firefox
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+
