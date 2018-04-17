@@ -9,7 +9,7 @@ install_pkg() {
     res=$(pacman -Q make >/dev/null 2>&1)
     if [ $? = 1 ]; then
         echo "Installing base-devel..." >&2
-        pacman -S base-devel --noconfirm 2>&1 || echo "Failed to install base-devel, exiting..." && exit 1
+        pacman -S base-devel --noconfirm 2>&1 || (echo "Failed to install base-devel, exiting..." >&2 && exit 1)
     fi
 
     # Set makeflags to -j{number of cores + 1}
@@ -19,16 +19,16 @@ install_pkg() {
 
     echo "Installing yay AUR helper..." >&2
     # Install yay AUR helper
-    sudo -u "$SUDO_USER" git clone -q https://aur.archlinux.org/yay || echo "Failed to install yay, exiting..." >&2 && exit 1
+    sudo -u "$SUDO_USER" git clone -q https://aur.archlinux.org/yay || (echo "Failed to install yay, exiting..." >&2 && exit 1)
     cd yay
-    sudo -u "$SUDO_USER" makepkg -si --noconfirm 2>&1 || echo "Failed to install yay, exiting..." >&2 && exit 1
+    sudo -u "$SUDO_USER" makepkg -si --noconfirm 2>&1 || (echo "Failed to install yay, exiting..." >&2 && exit 1)
     cd ..
     rm -rf yay/
 
 
     echo "Installing basic packages..." >&2
     # Install packages
-    sudo -u "$SUDO_USER" yay -S --quiet --needed --noconfirm --sudoloop - < ./pkg/packages.txt 2>&1 || echo "Failed to install basic packages, exiting..." >&2 && exit 1
+    sudo -u "$SUDO_USER" yay -S --quiet --needed --noconfirm --sudoloop - < ./pkg/packages.txt 2>&1 || (echo "Failed to install basic packages, exiting..." >&2 && exit 1)
     if sudo -u "$SUDO_USER" yay -R --quiet --noconfirm --sudoloop rxvt-unicode 2>&1; then
         sudo -u "$SUDO_USER" yay -S --quiet --noconfirm --sudoloop rxvt-unicode-patched 2>&1
     else
