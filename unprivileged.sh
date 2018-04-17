@@ -74,6 +74,7 @@ config_fish() {
 config_music() {
     echo "Configuring mpd..." >&2
     mkdir -p "$HOME/.config/mpd"
+    mkdir -p "$HOME/Music"
     cp ./mpd/mpd.conf "$HOME/.config/mpd/"
 
     echo "Configuring ncmpcpp..." >&2
