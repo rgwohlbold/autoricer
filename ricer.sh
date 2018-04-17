@@ -71,5 +71,5 @@ main() {
 read -p "Install extra packages? (y/n) " extra
 read -p "Intel drivers? (y/n) " intel
 
-main "$extra" "$intel" | sudo -u "$SUDO_USER" tee out.log
+main "$extra" "$intel" | sudo -u "$SUDO_USER" tee out.log >/dev/null
 sudo -u "$SUDO_USER" ./unprivileged.sh
