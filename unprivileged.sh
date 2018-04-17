@@ -23,8 +23,10 @@ config_lock() {
 
 
 vimplugin() {
-    echo "Installing vim plugin $2" >&2
-    git clone -q "$1" "$HOME/.vim/bundle/$2" >> out.log
+    if [ ! -d "$HOME/.vim/bundle/$2" ]; then
+        echo "Installing vim plugin $2..." >&2
+        git clone -q "$1" "$HOME/.vim/bundle/$2" >> out.log
+    fi
 }
 
 config_vim() {
@@ -56,7 +58,7 @@ config_fish() {
     echo "Configuring fish..." >&2
     curl -L https://get.oh-my.fish | fish >&2
     fish -c "omf install bobthefish; omf install bang-bang; exit" >&2
-    cp ./config.fish "$HOME/.config/fish/config.fish"
+    cp ./fish/config.fish "$HOME/.config/fish/config.fish"
 }
 
 config_music() {
