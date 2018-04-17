@@ -87,6 +87,7 @@ main() {
     config_lock
     config_vim
     config_fish
+    config_music
 }
 
 main >> out.log
