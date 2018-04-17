@@ -95,7 +95,7 @@ bindsym $mod+w gaps outer current plus 1
 bindsym $mod+shift+w gaps outer current minus 1
 
 bindsym $mod+x exec --no-startup-id ask-shutdown
-bindsym $mod+shift+d --no-startup-id ask-display
+bindsym $mod+shift+d exec --no-startup-id ask-display
 
 
 # switch to workspace
