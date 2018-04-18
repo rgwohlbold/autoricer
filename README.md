@@ -26,3 +26,11 @@ The packages in pkg/packages.txt will be installed, if the user wants to install
 the packages in pkg/extra.txt will be installed as well. The file pkg/makepkg.conf is a template where the real number of cores + 1 will be inserted into the MAKEFLAGS variable.
 
 The other directories are just there to seperate the different configuration files.
+
+## Screenshots
+
+[Empty workspaces](img/empty.png)
+
+[With terminal](img/full.png)
+
+[Lockscreen](img/lock.png)
