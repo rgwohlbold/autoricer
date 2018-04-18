@@ -29,8 +29,8 @@ The other directories are just there to seperate the different configuration fil
 
 ## Screenshots
 
-[Empty workspaces](img/empty.png)
+![Empty workspaces](img/empty.png)
 
-[With terminal](img/full.png)
+![With terminal](img/full.png)
 
-[Lockscreen](img/lock.png)
+![Lockscreen](img/lock.png)
