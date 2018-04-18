@@ -3,6 +3,7 @@ grub-customizer
 keepassx2
 libreoffice-fresh
 lxappearance
+mutt
 pandoc
 rsync
 sl

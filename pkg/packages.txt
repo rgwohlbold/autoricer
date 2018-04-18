@@ -8,7 +8,6 @@ firefox
 fish
 i3-gaps
 mpd
-mutt
 ncmpcpp
 neofetch
 network-manager-applet
