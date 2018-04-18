@@ -16,6 +16,7 @@ powerline-fonts-git
 polkit-gnome
 ranger
 rofi
+ttf-dejavu
 ttf-font-awesome
 urxvt-resize-font-git
 urxvt-perls
