@@ -58,12 +58,14 @@ config_vim() {
 config_fish() {
     echo "Configuring fish..." >&2
     if [ ! -d "$HOME/.local/share/omf" ]; then
-        curl -L https://get.oh-my.fish | fish >&2
+        curl -sL https://get.oh-my.fish > /tmp/ohmyfish
+        chmod +x /tmp/ohmyfish
+        fish -c "/tmp/ohmyfish --noninteractive"
     else
-        fish -c "omf update; exit"
+        fish -c "omf update"
     fi
     if [ ! -d "$HOME/.local/share/omf/pkg/bang-bang" ] || [ ! -d "$HOME/.local/share/omf/themes/bobthefish" ] ; then
-        fish -c "omf install bobthefish; omf install bang-bang; exit"
+        fish -c "omf install bobthefish bang-bang"
     fi
     cp ./fish/config.fish "$HOME/.config/fish/config.fish"
 }
