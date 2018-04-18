@@ -62,11 +62,8 @@ config_fish() {
     else
         fish -c "omf update; exit"
     fi
-    if [ ! -d "$HOME/.local/share/omf/pkg/bang-bang" ]; then
-        fish -c "omf install bang-bang; exit" >&2
-    fi
-    if [ ! -d "$HOME/.local/share/omf/themes/bobthefish" ]; then
-        fish -c "omf install bobthefish; exit"
+    if [ ! -d "$HOME/.local/share/omf/pkg/bang-bang" ] || [ ! -d "$HOME/.local/share/omf/themes/bobthefish" ] ; then
+        fish -c "omf install bobthefish; omf install bang-bang; exit"
     fi
     cp ./fish/config.fish "$HOME/.config/fish/config.fish"
 }
