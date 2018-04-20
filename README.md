@@ -2,7 +2,7 @@
 
 ## Usage
 The script assumes a state of installation of Arch Linux after the guide in the Archwiki.
-It has to be called with **sudo ./install.sh** by your main user account for it to be able to
+It can be executed as **root**, and will ask if you want to create a user. If this is not the case, it will prompt for a username. If the script is executed with **sudo**, the script will use the user that executed sudo (if it is not root).
 install packages, but still know what home directory to put the configurations in.
 
 The scripts will install my personal configuration of Arch Linux:

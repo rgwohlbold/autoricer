@@ -90,4 +90,5 @@ main() {
     config_music
 }
 
+echo $HOME
 main >> out.log

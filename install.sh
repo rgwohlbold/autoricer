@@ -1,9 +1,18 @@
 #!/bin/bash
 
-if [ ! "$(whoami)" = "root" ] || [ "$SUDO_USER" = "" ]; then
-    echo "Use sudo to execute this!"
-    exit
-fi
+# Creates a new user, adds him to wheel and uncomments the policy in /etc/sudoers
+create_user() {
+    pacman -S sudo >> out.log
+    username="$1"
+    useradd -s /bin/bash -m -g users "$username"
+    sed 's/# *%wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers > /etc/sudoers
+    chmod 440 /etc/sudoers
+    grep -q wheel /etc/group
+    if [ $? = "1" ]; then
+        groupadd wheel
+    fi
+    gpasswd -a "$username" wheel
+}
 
 install_pkg() {
     # Update packacke database
@@ -80,8 +89,35 @@ main() {
     config_shell
 }
 
+# This has to be executed as root
+if [ ! "$(whoami)" = "root" ]; then
+    echo "This operation requires root privileges"
+    exit 1
+fi
+
+# If this is not executed as sudo or if the sudo user is root, ask for the username or create a new user
+if [ ! "$SUDO_USER" ] || [ "$SUDO_USER" = "root" ]; then
+    read -p "Create user? (y/n) " create_user
+    if [ "$create_user" = "y" ]; then
+        read -p "What should be your username? " username
+        while [ ! "$username" ]; do
+            echo "Empty username!"
+            read -p "What should be your username? " username
+        done
+        create_user "$username"
+    else
+        read -p "What is your username? " username
+        while [ ! -d "/home/$username" ]; do
+            echo "User does not exist! "
+            read -p "What is your username? " username
+        done
+    fi
+    SUDO_USER="$username"
+fi
+
+
 read -p "Install extra packages? (y/n) " extra
 read -p "Intel drivers? (y/n) " intel
 
 main "$extra" "$intel" | sudo -u "$SUDO_USER" tee out.log >/dev/null
-sudo -u "$SUDO_USER" ./unprivileged.sh
+sudo -u "$SUDO_USER" ./config.sh
